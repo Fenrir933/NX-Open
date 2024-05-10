@@ -63,7 +63,7 @@ Folgende Argumente können mit Standardwerten belegt werden:
 ---
 Beispiel:
 
-![Alt text](Docs\Assets\SafeMotionOnOperation.png)
+![Alt text](Docs/Assets/SafeMotionOnOperation.png)
 
 ---
 
@@ -81,8 +81,8 @@ Beispiel:
 ---
 In die Aktionsargumente des NX-Anwenderbefehl den Name des Wurzelelement der *Wkz-Maschinenansicht* eintragen.
 
-![Alt text](Docs\Assets\Templatevoreinstellung_nav_name.png)
-![Alt text](Docs\Assets\Templatevoreinstellung.png)
+![Alt text](Docs/Assets/Templatevoreinstellung_nav_name.png)
+![Alt text](Docs/Assets/Templatevoreinstellung.png)
 
 ### Hinweis
 Wird kein Name angegeben wird automatisch der Standardname **GENERIC_MACHINE** verwendet.
