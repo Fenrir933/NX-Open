@@ -31,7 +31,7 @@ In ***NX*** einen neuen ***Anwenderbefehl*** hinzufügen und unter ***Aktionsarg
     GENERIC_MACHINE
     X:\Pfad\zur\Halterliste.txt
 
-![Alt text](Docs\Assets\Werkzeugdatenbank.png)
+![Alt text](Docs/Assets/Werkzeugdatenbank.png)
 
 ## **Hinweise**
 
