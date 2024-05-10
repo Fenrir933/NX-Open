@@ -31,7 +31,7 @@ In ***NX*** einen neuen ***Anwenderbefehl*** hinzufügen und unter ***Aktionsarg
     GENERIC_MACHINE
     X:\Pfad\zur\Halterliste.txt
 
-![Alt text](Assets\Werkzeugdatenbank.png)
+![Alt text](Docs\Assets\Werkzeugdatenbank.png)
 
 ## **Hinweise**
 
@@ -63,7 +63,7 @@ Folgende Argumente können mit Standardwerten belegt werden:
 ---
 Beispiel:
 
-![Alt text](Assets\SafeMotionOnOperation.png)
+![Alt text](Docs\Assets\SafeMotionOnOperation.png)
 
 ---
 
@@ -81,8 +81,8 @@ Beispiel:
 ---
 In die Aktionsargumente des NX-Anwenderbefehl den Name des Wurzelelement der *Wkz-Maschinenansicht* eintragen.
 
-![Alt text](Assets\Templatevoreinstellung_nav_name.png)
-![Alt text](Assets\Templatevoreinstellung.png)
+![Alt text](Docs\Assets\Templatevoreinstellung_nav_name.png)
+![Alt text](Docs\Assets\Templatevoreinstellung.png)
 
 ### Hinweis
 Wird kein Name angegeben wird automatisch der Standardname **GENERIC_MACHINE** verwendet.
