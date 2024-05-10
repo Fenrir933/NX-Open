@@ -1,0 +1,61 @@
+﻿<Window x:Class="ToolCreator.MVVM.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:ToolCreator.MVVM.Views"
+        xmlns:converter="clr-namespace:ToolCreator.MVVM.Converter"
+        xmlns:app="clr-namespace:ToolCreator"
+        mc:Ignorable="d"        
+        d:DesignWidth="1205"
+        d:DesignHeight="500"
+        d:DataContext="{d:DesignInstance local:MainWindow, IsDesignTimeCreatable=False}"
+        
+        Title="Werkzeugdatenbank"
+        Width="1205"
+        Height="500"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <converter:IntegerConverter x:Key="IntegerConverter"/>
+    </Window.Resources>
+
+    <DockPanel>
+        <Button Content="OK"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                DockPanel.Dock="Bottom"
+                Width="75"
+                Margin="10"
+                Command="{Binding ViewModel.CreateCommand}"/>
+        
+        <DataGrid ItemsSource="{Binding ViewModel.Tools}"
+                  CanUserSortColumns="False"
+                  CanUserAddRows="False"
+                  AutoGenerateColumns="False"
+                  AlternatingRowBackground="LightGray"
+                  FontSize="14"
+                  DockPanel.Dock="Top">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Erstellen">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Create, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="230"/>
+                <DataGridTextColumn Header="Nummer" Binding="{Binding Number, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource IntegerConverter}}" Width="75"/>
+                <DataGridTextColumn Header="Länge" Binding="{Binding Length}" IsReadOnly="True" Width="75"/>
+                <DataGridTextColumn Header="Durchmesser" Binding="{Binding Diameter}" IsReadOnly="True" Width="100"/>
+                <DataGridTextColumn Header="Unterer Durchmesser" Binding="{Binding InnerDiamaeter}" IsReadOnly="True" Width="150"/>
+                <DataGridTextColumn Header="Eckenradius" Binding="{Binding CornerRadius}" IsReadOnly="True" Width="100"/>
+                <DataGridTextColumn Header="Winkel" Binding="{Binding Angel}" IsReadOnly="False" Width="65"/>
+                <DataGridTextColumn Header="Schneiden" Binding="{Binding Flutes}" IsReadOnly="True"/>
+                <DataGridComboBoxColumn Header="Halter" ItemsSource="{Binding Source={x:Static app:Startup.HolderNames}}"
+                                        SelectedValueBinding="{Binding HolderName}"
+                                        Width="230"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>
