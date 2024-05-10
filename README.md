@@ -31,7 +31,7 @@ In ***NX*** einen neuen ***Anwenderbefehl*** hinzufügen und unter ***Aktionsarg
     GENERIC_MACHINE
     X:\Pfad\zur\Halterliste.txt
 
-![Alt text](Docs/Assets/Werkzeugdatenbank.png)
+![Alt text](Assets/Werkzeugdatenbank.png)
 
 ## **Hinweise**
 
@@ -63,7 +63,7 @@ Folgende Argumente können mit Standardwerten belegt werden:
 ---
 Beispiel:
 
-![Alt text](Docs/Assets/SafeMotionOnOperation.png)
+![Alt text](Assets/SafeMotionOnOperation.png)
 
 ---
 
@@ -81,8 +81,8 @@ Beispiel:
 ---
 In die Aktionsargumente des NX-Anwenderbefehl den Name des Wurzelelement der *Wkz-Maschinenansicht* eintragen.
 
-![Alt text](Docs/Assets/Templatevoreinstellung_nav_name.png)
-![Alt text](Docs/Assets/Templatevoreinstellung.png)
+![Alt text](Assets/Templatevoreinstellung_nav_name.png)
+![Alt text](Assets/Templatevoreinstellung.png)
 
 ### Hinweis
 Wird kein Name angegeben wird automatisch der Standardname **GENERIC_MACHINE** verwendet.
@@ -100,12 +100,12 @@ Erstellt die übergebene Anzahl an Werkstücken innerhalb einer Geometrie.
 ---
 
 # Referenzkopie
-Kopiert das MCS_G54 Objekt in jedes gefundene Objekt welche dem MCS_MAIN untergeordnet sind mit Referenz.
+Kopiert eine Referenz des **MCS_G54** Objekt in jedes dem **MCS_MAIN** ***direkt untergeordneten*** Workpiece und passt die Ausrichtung des jeweiligen MCS an das **MCS_MAIN** an.
 
 ---
 
 # MCS nummerieren
-Ersetzt den Name des ersten gefundenen MCS und dem darunterliegenden CYCLE800-MCS unter jedem Workpiece im MCS_MAIN durch MCS_G54...MCS_G599 und die Nullpunkt-Verschiebung im MCS Objekt fortlaufend ab 1.
+Ersetzt den Name des ersten gefundenen MCS und dem darunterliegenden CYCLE800-MCS unter jedem Workpiece im MCS_MAIN durch ***MCS_G54...MCS_G599*** und die Nullpunkt-Verschiebung im MCS Objekt fortlaufend ab 1.
 
 ---
 
