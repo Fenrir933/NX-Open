@@ -20,7 +20,7 @@ In ***NX*** einen neuen ***Anwenderbefehl*** hinzufügen und unter ***Aktionsarg
 
     D:\Pfad\zur\Datenbank.db
     Tabellenname
-    POCKET
+    Name der Werkzeugaufnahme (GENERIC_MACHINE, POCKET, ...)
     D:\Pfad\zur\Halterliste.txt (optional)
 
 ![Alt text](Assets/Werkzeugdatenbank.png)
