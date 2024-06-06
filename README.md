@@ -18,18 +18,10 @@
 
 In ***NX*** einen neuen ***Anwenderbefehl*** hinzufügen und unter ***Aktionsargumente*** folgende Parameter eingeben:
 
--***Pfad zur Werkzeugdatenbank***
-
--***Tabellenname der jeweiligen Maschine der Datenbank***
-
--***Name der Werkzeugaufnahme in der Wkz-Maschinenansicht***
-
--***Pfad zur Halterliste***
-
-    X:\Pfad\zur\Werkzeugdatenbank.db
-    FP4A
-    GENERIC_MACHINE
-    X:\Pfad\zur\Halterliste.txt
+    D:\Pfad\zur\Datenbank.db
+    Tabellenname
+    POCKET
+    D:\Pfad\zur\Halterliste.txt (optional)
 
 ![Alt text](Assets/Werkzeugdatenbank.png)
 
@@ -83,9 +75,6 @@ In die Aktionsargumente des NX-Anwenderbefehl den Name des Wurzelelement der *Wk
 
 ![Alt text](Assets/Templatevoreinstellung_nav_name.png)
 ![Alt text](Assets/Templatevoreinstellung.png)
-
-### Hinweis
-Wird kein Name angegeben wird automatisch der Standardname **GENERIC_MACHINE** verwendet.
 
 ---
 
