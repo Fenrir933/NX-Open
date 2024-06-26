@@ -11,20 +11,24 @@ namespace ReferenceCopy {
         /// Einstiegspunkt
         /// </summary>
         public static void Main(string[] args) {
-            NCGroup mcsMain = null;
+            NCGroup mcsMain = NX.CAM.Find("MCS_MAIN");
             NXMatrix mainOrientation = null;
             CAMObject original = null;
+            bool orient = false;
+
+            if (args.Length > 0)
+                orient = args[0] == "MCS";
 
             // sucht MCS_MAIN Objekt und speichert dessen Orientierung
-            try {
-                mcsMain = NX.CAM.Find("MCS_MAIN");
-                var mcsMainBuilder = NX.CAM.Collection.CreateMillOrientGeomBuilder(mcsMain);
-                mainOrientation = mcsMainBuilder.Mcs.Orientation;
-            }
-            catch (NXException) {
-                NX.ShowErrorBox("MCS_MAIN nicht gefunden!");
-                Environment.Exit(1);
-            }
+            if (orient)
+                try {
+                    var mcsMainBuilder = NX.CAM.Collection.CreateMillOrientGeomBuilder(mcsMain);
+                    mainOrientation = mcsMainBuilder.Mcs.Orientation;
+                }
+                catch (NXException) {
+                    NX.ShowErrorBox("MCS_MAIN nicht gefunden!");
+                    Environment.Exit(1);
+                }
 
             // prüft ob das MCS_MAIN weniger als 1 Objekt enthält
             CAMObject[] mainChilds = mcsMain.GetMembers();
@@ -47,7 +51,9 @@ namespace ReferenceCopy {
                             original = mcs;
 
                             // richtet das MCS zusätzlich noch nach dem MCS_MAIN aus
-                            OrientMCS(original, mainOrientation);
+                            if (mainOrientation != null)
+                                OrientMCS(original, mainOrientation);
+
                             break;
                         }
                     }
@@ -82,10 +88,10 @@ namespace ReferenceCopy {
 
                         // wenn eine Orientierung des MAIN_MCS vorhanden ist...
                         if (mainOrientation != null)
-                            /// wird über alle direkt untergeordneten Elemente des WORKPIECE iteriert,
-                            /// wenn dieses vom SubTyp MCS ist wird es nach der Orientierung des MCS_MAIN ausgerichtet.
-                            foreach (var mcsChild in workpiece.GetMembers())
-                                if (NX.GetNXType(mcsChild).Subtype == (int)GeometrySubtypes.MCS)
+                        /// wird über alle direkt untergeordneten Elemente des WORKPIECE iteriert,
+                        /// wenn dieses vom SubTyp MCS ist wird es nach der Orientierung des MCS_MAIN ausgerichtet.
+                        foreach (var mcsChild in workpiece.GetMembers())
+                            if (NX.GetNXType(mcsChild).Subtype == (int)GeometrySubtypes.MCS)
                                     OrientMCS(mcsChild, mainOrientation);
                     }
                 }
