@@ -1,4 +1,6 @@
-﻿using NXTools;
+﻿using NXOpen;
+using NXOpen.CAM;
+using NXTools;
 using NXTools.Drilling;
 using NXTools.General;
 using NXTools.Milling;
@@ -7,7 +9,6 @@ using NXWrapper.Enumerations.CAM;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
 using System.Windows.Input;
 
 namespace ToolCreator.MVVM.ViewModels {
@@ -15,7 +16,6 @@ namespace ToolCreator.MVVM.ViewModels {
 
         public List<ToolEntry> Tools { get; private set; }
         public ICommand CreateCommand { get; }
-        List<int> _settedToolNumbers, _availableNums = new List<int>();
 
         /// <summary>
         /// Erstellt Werkzeuge und löst das <see cref="OnRequestClose"/> Event aus.
@@ -24,6 +24,18 @@ namespace ToolCreator.MVVM.ViewModels {
         public void CreateCommandPressed(object obj) {
             OnRequestClose.Invoke(this, EventArgs.Empty);
             CreateTools();
+
+            if (Startup.TableName.Contains("DMU_90_P")) {
+                int toolNumber = 1;
+                foreach (var element in Startup.ToolPocket.GetMembers()) {
+                    var type = NX.GetNXType(element);
+                    if (type.Type == (int)MachineTypes.TOOL) {
+                        Tool tool = (Tool)element;
+                        NX.UFSession.Param.SetIntValue(tool.Tag, 1038, toolNumber);
+                        toolNumber++;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -37,10 +49,6 @@ namespace ToolCreator.MVVM.ViewModels {
         public MainViewModel() {
             Tools = GetTools();
             CreateCommand = new RelayCommand<object>(CreateCommandPressed);
-            _settedToolNumbers = GetAllSetToolNumbers();
-
-            for (int i = 1; i < 61; i++)
-                _availableNums.Add(i);
         }
 
         /// <summary>
@@ -50,14 +58,8 @@ namespace ToolCreator.MVVM.ViewModels {
             NX.SetUndoMark("Werkzeuge erstellen");
 
             foreach (var entry in Tools) {
-                // Quick & Dirty Werkzeugnummern zuweisen
-                // TODO - existierendem Werkzeug gleiche Nummer zuweisen
-                int num = _availableNums.Except(_settedToolNumbers).Min();
-                _settedToolNumbers.Add(num);
-
                 if (entry.Create) {
                     BaseTool tool;
-                    entry.Number = num;
 
                     switch (entry.Type) {
                         case ToolSubTypes.Mill:
@@ -112,7 +114,7 @@ namespace ToolCreator.MVVM.ViewModels {
             var connection = new SQLiteConnection($"Data Source={Startup.DatabasePath}");
             string query = $"SELECT * FROM {Startup.TableName}";
 
-            int register = Startup.TableName.Contains("90") ? 1 : 0 ;
+            int register = Startup.TableName.Contains("DMU_90_P") ? 1 : 0 ;
 
             connection.Open();
             var command = new SQLiteCommand(query, connection);
