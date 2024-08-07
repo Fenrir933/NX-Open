@@ -7,12 +7,12 @@
         xmlns:converter="clr-namespace:ToolCreator.MVVM.Converter"
         xmlns:app="clr-namespace:ToolCreator"
         mc:Ignorable="d"        
-        d:DesignWidth="1205"
+        d:DesignWidth="1435"
         d:DesignHeight="500"
         d:DataContext="{d:DesignInstance local:MainWindow, IsDesignTimeCreatable=False}"
         
         Title="Werkzeugdatenbank"
-        Width="1205"
+        Width="1435"
         Height="500"
         WindowStartupLocation="CenterScreen">
 
@@ -55,6 +55,7 @@
                 <DataGridComboBoxColumn Header="Halter" ItemsSource="{Binding Source={x:Static app:Startup.HolderNames}}"
                                         SelectedValueBinding="{Binding HolderName}"
                                         Width="230"/>
+                <DataGridTextColumn Header="Artikel" Binding="{Binding Article}" IsReadOnly="True" Width="230"/>
             </DataGrid.Columns>
         </DataGrid>
     </DockPanel>
