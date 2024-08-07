@@ -34,5 +34,6 @@
         public int Flutes { get; set; }
         public bool Create { get; set; }
         public string HolderName { get; set; } = "";
+        public string Article { get; set; } = "";
     }
 }
