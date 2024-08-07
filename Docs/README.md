@@ -34,6 +34,7 @@ In ***NX*** einen neuen ***Anwenderbefehl*** hinzufügen und unter ***Aktionsarg
 - Gewindebohrer versucht die zum Durchmesser passende Steigung zu finden, wird auf 1 gesetzt falls keine gefunden wurde.
 - Gewindebohrer wird ohne Anschnittdurchmesser & Länge erstellt.
 - Falls ein Werkzeug mit gleichen Namen bereits existiert wird dieses aktualisiert (Schneidenlänge wird beibehalten).
+- Nummeriert alle Werkzeuge fortlaufend ab 1 bei Erstellung / Aktualisierung
 ---
 
 ## SafeMotionOnOperation
@@ -76,8 +77,6 @@ In die Aktionsargumente des NX-Anwenderbefehl den Name des Wurzelelement der *Wk
 ![Templatevoreinstellung](Assets/Templatevoreinstellung.png)
 
 ---
-
-Nummeriert alle Werkzeuge fortlaufend ab 1 durch.
 
 
 ## Werkstücke erstellen / WorkpieceCreator
