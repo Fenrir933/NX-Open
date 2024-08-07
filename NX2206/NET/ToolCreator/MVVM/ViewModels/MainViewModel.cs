@@ -132,7 +132,8 @@ namespace ToolCreator.MVVM.ViewModels {
                     CornerRadius = reader.GetDouble(index++),
                     Angel = reader.GetDouble(index++),
                     Flutes = reader.GetInt32(index++),
-                    HolderName = reader.GetString(index),
+                    HolderName = reader.GetString(index++),
+                    Article = reader.GetString(index),
                     AdjustRegister = register
                 });
             }
@@ -143,24 +144,6 @@ namespace ToolCreator.MVVM.ViewModels {
 
             tools.Sort((x, y) => x.Name.CompareTo(y.Name));
             return tools;
-        }
-
-        /// <summary>
-        /// Gibt alle benutzten Werkzeugnummer zurück.
-        /// </summary>
-        /// <returns><![CDATA[List<int>]]></returns>
-        List<int> GetAllSetToolNumbers() {
-            List<int> toolNumbers = new List<int>();
-            foreach (var element in NX.CAM.MachineRoot.GetMembers()) {
-                var type = NX.GetNXType(element);
-                if (type.Type == (int)MachineTypes.TOOL) {
-                    var toolBuilder = NX.CAM.Collection.CreateTToolBuilder(element);
-                    toolNumbers.Add(toolBuilder.TlNumberBuilder.Value);
-                    toolBuilder.Destroy();
-                }
-            }
-
-            return toolNumbers;
         }
     }
 }
