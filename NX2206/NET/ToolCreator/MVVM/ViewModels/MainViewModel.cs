@@ -114,6 +114,7 @@ namespace ToolCreator.MVVM.ViewModels {
             var connection = new SQLiteConnection($"Data Source={Startup.DatabasePath}");
             string query = $"SELECT * FROM {Startup.TableName}";
 
+            // Legt die Werkzeugkorrektur auf 1 fest, falls die Werkzeuge aus der DMU_90 Datenbank stammen.
             int register = Startup.TableName.Contains("DMU_90_P") ? 1 : 0 ;
 
             connection.Open();
@@ -122,6 +123,14 @@ namespace ToolCreator.MVVM.ViewModels {
             var reader = command.ExecuteReader();
             while (reader.Read()) {
                 int index = 0;
+                string article = "";
+                string holder = "";
+
+                if (!reader.IsDBNull(9))
+                    holder = reader.GetString(9);
+                if (!reader.IsDBNull(10))
+                    article = reader.GetString(10);
+
                 tools.Add(new ToolEntry {
                     Number = reader.GetInt32(index++),
                     Type = (ToolSubTypes)reader.GetInt32(index++),
@@ -132,8 +141,8 @@ namespace ToolCreator.MVVM.ViewModels {
                     CornerRadius = reader.GetDouble(index++),
                     Angel = reader.GetDouble(index++),
                     Flutes = reader.GetInt32(index++),
-                    HolderName = reader.GetString(index++),
-                    Article = reader.GetString(index),
+                    HolderName = holder,
+                    Article = article,
                     AdjustRegister = register
                 });
             }
