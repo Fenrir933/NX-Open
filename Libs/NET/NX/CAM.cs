@@ -1,4 +1,5 @@
 ﻿using NXWrapper.Interfaces;
+using NXWrapper.Enumerations.CAM;
 using NXOpen.CAM;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace NXWrapper.CAM {
         public NCGroup MethodRoot { get; }
         public NCGroupCollection Collection { get; }
         public OperationCollection Operations { get; }
+        public HashSet<Tool> Tools { get; } = new HashSet<Tool>();
 
         internal CAM() {
             Setup = NX.WorkPart.CAMSetup;
@@ -21,6 +23,10 @@ namespace NXWrapper.CAM {
             MethodRoot = Setup.GetRoot(CAMSetup.View.MachineMethod);
             Collection = Setup.CAMGroupCollection;
             Operations = Setup.CAMOperationCollection;
+
+            foreach (var item in GetNCGroupMembers(MachineRoot, true))
+                if (NX.GetNXType(item).Type == (int)MachineTypes.TOOL)
+                    Tools.Add((Tool)item);
         }
 
         private void GetNCGroupMembersRecursive(NCGroup ncGroup, ref IEnumerable<NCGroup> groups) {

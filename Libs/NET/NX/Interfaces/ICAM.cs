@@ -20,6 +20,8 @@ namespace NXWrapper.Interfaces {
         NCGroupCollection Collection { get; }
         /// <summary> Sammlung aller Operationen. </summary>
         OperationCollection Operations { get; }
+        /// <summary> Sammlung aller Werkzeuge in der Wkz-Maschinenansicht. </summary>
+        HashSet<Tool> Tools { get; }
 
         /// <summary>
         /// Gibt ein <see cref="IEnumerable{NCGroup}"/> mit allen untergeordneten <see cref="NCGroup"/> Objekten einer <see cref="NCGroup"/> zurück.
