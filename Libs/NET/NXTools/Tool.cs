@@ -1,4 +1,7 @@
-﻿namespace NXTools {
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace NXTools {
     /// <summary> Werkzeugtypen </summary>
     public enum ToolTypes {
         Mill = 1,
@@ -21,7 +24,13 @@
     }
 
     /// <summary> Alle benötigten Eigenschaften zur Erstellung eines Werkzeugs. </summary>
-    public class ToolEntry {
+    public class ToolEntry : INotifyPropertyChanged {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        void NotifyPropertyChanged([CallerMemberName] string name = "") =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+
         public ToolSubTypes Type { get; set; }
         public int Number { get; set; }
         public int AdjustRegister { get; set; } = 1;
@@ -32,8 +41,15 @@
         public double CornerRadius { get; set; }
         public double Angel { get; set; }
         public int Flutes { get; set; }
-        public bool Create { get; set; }
         public string HolderName { get; set; } = "";
         public string Article { get; set; } = "";
+        bool _create;
+        public bool Create {
+            get => _create;
+            set {
+                _create = value;
+                NotifyPropertyChanged();
+            }
+        }
     }
 }
