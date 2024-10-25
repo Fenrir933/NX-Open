@@ -1,5 +1,4 @@
-﻿using NXOpen;
-using NXOpen.CAM;
+﻿using NXOpen.CAM;
 using NXTools;
 using NXTools.Drilling;
 using NXTools.General;
@@ -16,6 +15,7 @@ namespace ToolCreator.MVVM.ViewModels {
 
         public List<ToolEntry> Tools { get; private set; }
         public ICommand CreateCommand { get; }
+        public ICommand UpdateCommand { get; }
 
         /// <summary>
         /// Erstellt Werkzeuge und löst das <see cref="OnRequestClose"/> Event aus.
@@ -39,6 +39,18 @@ namespace ToolCreator.MVVM.ViewModels {
         }
 
         /// <summary>
+        /// Wählt alle vorhandenen Werkzeuge an.
+        /// </summary>
+        /// <param name="obj"></param>
+        public void UpdateCommandPressed(object obj) {
+            foreach (var item in NX.CAM.Tools) {
+                var entry = Tools.Find(t => t.Name == item.Name);
+                if (entry != null)
+                    entry.Create = true;
+            }
+        }
+
+        /// <summary>
         /// Event feuert wenn Programm schließen angefordert wurde.
         /// </summary>
         public event EventHandler OnRequestClose;
@@ -49,6 +61,7 @@ namespace ToolCreator.MVVM.ViewModels {
         public MainViewModel() {
             Tools = GetTools();
             CreateCommand = new RelayCommand<object>(CreateCommandPressed);
+            UpdateCommand = new RelayCommand<object>(UpdateCommandPressed);
         }
 
         /// <summary>

@@ -21,13 +21,23 @@
     </Window.Resources>
 
     <DockPanel>
-        <Button Content="OK"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                DockPanel.Dock="Bottom"
-                Width="75"
-                Margin="10"
-                Command="{Binding ViewModel.CreateCommand}"/>
+        <DockPanel DockPanel.Dock="Bottom">
+            
+            <Button Content="Vorhandene aktualisieren"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="140"
+                    Margin="10"
+                    Command="{Binding ViewModel.UpdateCommand}"/>
+            
+            <Button Content="OK"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="75"
+                    Margin="10"
+                    Command="{Binding ViewModel.CreateCommand}"/>
+
+        </DockPanel>
         
         <DataGrid ItemsSource="{Binding ViewModel.Tools}"
                   CanUserSortColumns="False"
@@ -40,7 +50,7 @@
                 <DataGridTemplateColumn Header="Erstellen">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding Create, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+                            <CheckBox IsChecked="{Binding Create, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" HorizontalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
