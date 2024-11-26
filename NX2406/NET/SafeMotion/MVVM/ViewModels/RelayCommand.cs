@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace SafeMotionOnOperation.MVVM.ViewModels {
+namespace SafeMotion.MVVM.ViewModels {
     public class RelayCommand<T> : ICommand {
 
         #region Fields

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SafeMotionOnOperation.MVVM.ViewModels {
+namespace SafeMotion.MVVM.ViewModels {
     /// <summary>
     /// Standard INotifyPropertyChanged Implementierung
     /// </summary>

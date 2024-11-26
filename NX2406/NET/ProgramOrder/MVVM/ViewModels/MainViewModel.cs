@@ -1,17 +1,18 @@
-﻿using System;
+﻿using NXOpen.CAM;
+using NXWrapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Data;
 using System.Windows.Input;
-using NXWrapper;
 
 namespace ProgramOrder.MVVM.ViewModels {
     public class MainViewModel : ViewModelBase {
 
         #region Fields
 
-        readonly List<NXOpen.CAM.Operation> _operations = new List<NXOpen.CAM.Operation>();
+        readonly List<Operation> _operations = new List<Operation>();
         readonly HashSet<string> _uniqueOperations = new HashSet<string>();
         readonly Dictionary<string, HashSet<string>> _operationsByTool = new Dictionary<string, HashSet<string>>();
 
@@ -120,7 +121,7 @@ namespace ProgramOrder.MVVM.ViewModels {
         /// </summary>
         void GetUniqueOperations() {
             foreach (var operation in NX.CAM.Operations) {
-                var op = (NXOpen.CAM.Operation)operation;
+                var op = (Operation)operation;
                 var opName = Regex.Replace(op.Name, "_\\d+$", "").ToUpper();
                 if (opName != "DOCUMENTATION") {
                     _uniqueOperations.Add(opName);
@@ -135,7 +136,7 @@ namespace ProgramOrder.MVVM.ViewModels {
         void GetMultiOperationsSingleTool() {
             foreach (var operation in _uniqueOperations) {
                 var op = NX.CAM.Operations.FindObject(operation);
-                var tool = op.GetParent(NXOpen.CAM.CAMSetup.View.MachineTool);
+                var tool = op.GetParent(CAMSetup.View.MachineTool);
 
                 if (_operationsByTool.TryGetValue(tool.Name, out var _))
                     _operationsByTool[tool.Name].Add(op.Name);
@@ -163,9 +164,9 @@ namespace ProgramOrder.MVVM.ViewModels {
         /// Sortiert die Programmreihenfolge.
         /// </summary>
         void SortSelectedOperations() {
-            Dictionary<string, List<NXOpen.CAM.Operation>> operationsByMCS = new Dictionary<string, List<NXOpen.CAM.Operation>>();
-            NXOpen.CAM.Operation referenceOperation = null;
-            NXOpen.CAM.CAMSetup.Paste paste;
+            Dictionary<string, List<Operation>> operationsByMCS = new Dictionary<string, List<Operation>>();
+            Operation referenceOperation = null;
+            CAMSetup.Paste paste;
             string tool = Tools.CurrentItem.ToString();
             string excludeOperation = ExcludeOperations.CurrentItem.ToString();
 
@@ -181,19 +182,19 @@ namespace ProgramOrder.MVVM.ViewModels {
                         continue;
 
                     if (operation.Name.Contains(toolOperation)) {
-                        string mcs = operation.GetParent(NXOpen.CAM.CAMSetup.View.Geometry).Name;
+                        string mcs = operation.GetParent(CAMSetup.View.Geometry).Name;
 
                         if (operationsByMCS.TryGetValue(mcs, out var _))
                             operationsByMCS[mcs].Add(operation);
                         else {
-                            var operations = new List<NXOpen.CAM.Operation>() { operation };
+                            var operations = new List<Operation>() { operation };
                             operationsByMCS[mcs] = operations;
                         }
                     }
                 }
             }
 
-            List<NXOpen.CAM.Operation> orderedOperations = new List<NXOpen.CAM.Operation>();
+            List<Operation> orderedOperations = new List<Operation>();
 
             foreach (var operation in operationsByMCS.Values)
                 orderedOperations.AddRange(operation);
@@ -203,9 +204,9 @@ namespace ProgramOrder.MVVM.ViewModels {
 
             // setzt Einfüge-Option und kehrt die Operationsliste um je nach gewählter Option
             if (Before)
-                paste = NXOpen.CAM.CAMSetup.Paste.Before;
+                paste = CAMSetup.Paste.Before;
             else {
-                paste = NXOpen.CAM.CAMSetup.Paste.After;
+                paste = CAMSetup.Paste.After;
                 _operations.Reverse();
             }
 
@@ -220,7 +221,7 @@ namespace ProgramOrder.MVVM.ViewModels {
 
             // Verschiebt alle gewählten Objekte in der Programmreihenfolge
             if (referenceOperation != null) {
-                NX.CAM.Setup.MoveObjects(NXOpen.CAM.CAMSetup.View.ProgramOrder,
+                NX.CAM.Setup.MoveObjects(CAMSetup.View.ProgramOrder,
                     orderedOperations.ToArray(),
                     referenceOperation,
                     paste);
@@ -238,7 +239,7 @@ namespace ProgramOrder.MVVM.ViewModels {
             foreach (var operation in _operationsByTool[Tools.CurrentItem.ToString()])
                 operations.Remove(operation);
 
-            operations.Sort();
+            operations.Sort(new NaturalStringComparer());
             Operations = new ListCollectionView(operations);
             ExcludeOperations = new ListCollectionView(exclude);
         }

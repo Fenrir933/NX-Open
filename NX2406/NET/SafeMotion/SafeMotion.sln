@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeMotionOnOperation", "SafeMotionOnOperation.csproj", "{B3A1967C-41E9-4C06-AA2E-1F4F72AE65C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SafeMotion", "SafeMotion.csproj", "{B3A1967C-41E9-4C06-AA2E-1F4F72AE65C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

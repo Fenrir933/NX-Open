@@ -1,7 +1,7 @@
-﻿using SafeMotionOnOperation.MVVM.ViewModels;
+﻿using SafeMotion.MVVM.ViewModels;
 using System.Windows;
 
-namespace SafeMotionOnOperation.MVVM.Views {
+namespace SafeMotion.MVVM.Views {
     public partial class MainWindow : Window {
 
         public MainViewModel ViewModel { get; } = new MainViewModel();

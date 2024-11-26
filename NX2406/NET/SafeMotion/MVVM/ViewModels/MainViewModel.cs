@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace SafeMotionOnOperation.MVVM.ViewModels {
+namespace SafeMotion.MVVM.ViewModels {
     public class MainViewModel : ViewModelBase {
 
         #region Fields

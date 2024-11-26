@@ -1,4 +1,5 @@
 ﻿using NXOpen;
+using NXOpen.CAM;
 using NXWrapper;
 using NXWrapper.Enumerations.CAM;
 using System;
@@ -12,18 +13,14 @@ namespace ToolNumbers {
             NX.SetUndoMark("Werkzeuge nummerieren");
 
             int toolNumber = 1;
-            foreach (var element in NX.CAM.MachineRoot.GetMembers()) {
+            foreach (var element in NX.CAM.Find("POCKET").GetMembers()) {
                 var type = NX.GetNXType(element);
                 if (type.Type == (int)MachineTypes.TOOL) {
-                    var toolBuilder = NX.CAM.Collection.CreateTToolBuilder(element);
-                    toolBuilder.TlNumberBuilder.Value = toolNumber;
+                    Tool tool = (Tool)element;
+                    NX.UFSession.Param.SetIntValue(tool.Tag, 1038, toolNumber);
                     toolNumber++;
-                    toolBuilder.Commit();
-                    toolBuilder.Destroy();
                 }
             }
-
-            NX.ShowInfoBox("Werkzeugnummern gesetzt.");
         }
 
         /// <summary> Gibt die gerade aktive NXSession sofort wieder frei. </summary>

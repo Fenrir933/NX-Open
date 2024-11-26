@@ -37,7 +37,7 @@ In ***NX*** einen neuen ***Anwenderbefehl*** hinzufügen und unter ***Aktionsarg
 - Nummeriert alle Werkzeuge fortlaufend ab 1 bei Erstellung / Aktualisierung
 ---
 
-## SafeMotionOnOperation
+## SafeMotion
 
 ### **Setzt auf allen ausgewählte Operationen & Werkzeugen das ***SafeMotionOnOperation*** Endereignis.**
 
@@ -52,7 +52,7 @@ Folgende Argumente können mit Standardwerten belegt werden:
     Drehachsen          ->  KEIN, Beide, B, C
 
 
-![SafeMotionOnOperation](Assets/SafeMotionOnOperation.png)
+![SafeMotion](Assets/SafeMotion.png)
 
 ---
 

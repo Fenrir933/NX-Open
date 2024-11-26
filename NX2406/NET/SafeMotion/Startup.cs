@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 
-namespace SafeMotionOnOperation {
+namespace SafeMotion {
     public class Startup {
 
         public static List<string> FIRST    = new List<string>() { "KEIN", "XYZ", "XY", "YZ", "ZX", "X", "Y", "Z" };
@@ -13,8 +13,8 @@ namespace SafeMotionOnOperation {
         public static List<string> ROTARY   = new List<string>() { "KEIN", "Beide", "B", "C" };
 
         public static string HOME_X         = "0";
-        public static string HOME_Y         = "-400";
-        public static string HOME_Z         = "-400";
+        public static string HOME_Y         = "0";
+        public static string HOME_Z         = "0";
         public static string MOVE_FIRST     = "Z";
         public static string MOVE_SECOND    = "Y";
         public static string MOVE_THIRD     = "KEIN";
